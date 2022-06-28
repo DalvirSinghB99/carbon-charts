@@ -49,12 +49,12 @@ export const meterOptionsNoStatus = {
 };
 
 export const propMeterData = [
-	{ group: '8.3.10.21', value: 10, annotation: "" },
-	{ group: '8.4.9.21', value: 20, annotation: "" },
-	{ group: '8.5.12.3', value: 30, annotation: "" },
-	{ group: '8.6.9.22', value: 20, annotation: "Current Level (8.6.9.22)" },
-	{ group: '8.7.9.22', value: 10, annotation: "Recommended Level (8.7.9.22) " },
-	{ group: '8.8.9.21', value: 4, annotation: "" },
+	{ group: '4.3.10.21', value: 10, annotation: "" },
+	{ group: '5.4.9.21', value: 20, annotation: "" },
+	{ group: '6.5.12.3', value: 30, annotation: "" },
+	{ group: '7.6.9.22', value: 20, annotation: "Current Level (8.6.9.22)" },
+	{ group: '8.7.9.22', value: 10, annotation: "Recommended Level (8.7.9.22)" },
+	{ group: '8.8.9.21', value: 6, annotation: "" },
 	{ group: 'others', value: 4, annotation: "" },
 ];
 
@@ -67,7 +67,17 @@ export const propMeterOptions = {
 			unit: 'percent',
 		},
 	},
+
 	color: {
+		scale: {
+			'4.3.10.21': '#e35252',
+			'5.4.9.21': '#f59556',
+			'6.5.12.3': '#e8b556',
+			'7.6.9.22': '#3c8025',
+			'8.7.9.22': '#60c93c',
+			'8.8.9.21': '#6de645',
+			'others': 'gray'
+		},
 		pairing: {
 			option: 2,
 		},
