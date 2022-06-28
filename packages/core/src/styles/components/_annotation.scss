@@ -1,0 +1,48 @@
+@use "@carbon/styles/scss/type" as *;
+@use "@carbon/styles/scss/motion" as *;
+@use "@carbon/styles/scss/theme" as *;
+
+.#{$prefix}--#{$charts-prefix}--annotation{
+    // pointer-events: none;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.2);
+    word-wrap: break-word;
+    z-index: 1000;
+    position: absolute;
+    display: inline-block;
+    width: 100px;
+    // max-height: fit-content;
+    
+
+    .item {
+      position: absolute;
+      top:-18px;
+      width: 100%;
+      height: max-content;
+      background-color: $background-inverse;
+      text-decoration: $text-inverse  !important;
+      text-align: center;
+      border-radius: 5px;
+      
+
+      p {
+        color: $text-inverse;
+      }
+
+      &::after{
+        content: "";
+          position: absolute;
+          left: 3px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: $background-inverse transparent transparent transparent;
+      }
+
+      // &:hover{
+      //   overflow: visible;
+      //   white-space: normal;
+      //   width: auto;
+      // }
+    }
+
+    
+  }

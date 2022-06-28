@@ -49,19 +49,22 @@ export const meterOptionsNoStatus = {
 };
 
 export const propMeterData = [
-	{ group: 'emails', value: 202 },
-	{ group: 'photos', value: 654 },
-	{ group: 'text messages', value: 723 },
-	{ group: 'other', value: 120 },
+	{ group: '8.3.10.21', value: 10, annotation: "" },
+	{ group: '8.4.9.21', value: 20, annotation: "" },
+	{ group: '8.5.12.3', value: 30, annotation: "" },
+	{ group: '8.6.9.22', value: 20, annotation: "Current Level (8.6.9.22)" },
+	{ group: '8.7.9.22', value: 10, annotation: "Recommended Level (8.7.9.22) " },
+	{ group: '8.8.9.21', value: 4, annotation: "" },
+	{ group: 'others', value: 4, annotation: "" },
 ];
 
 export const propMeterOptions = {
 	title: 'Proportional Meter Chart',
-	height: '130px',
+	height: '200px',
 	meter: {
 		proportional: {
-			total: 2000,
-			unit: 'GB',
+			total: 100,
+			unit: 'percent',
 		},
 	},
 	color: {

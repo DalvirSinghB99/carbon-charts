@@ -20,6 +20,17 @@ export class MeterChartModel extends ChartModel {
 		return max;
 	}
 
+/*
+    Checks if the data has annotations that needs to be applied 
+ */
+	isAnnotated(data) {
+		return data.some((d) => {
+			if (d?.annotation?.length > 0) {
+				return true
+			}
+		})
+	}
+
 	/**
 	 * Use a provided color for the bar or default to carbon color if no status provided.
 	 * Defaults to carbon color otherwise.
@@ -108,15 +119,29 @@ export class MeterChartModel extends ChartModel {
 		} else {
 			const total = Tools.getProperty(proportional, 'total');
 			domainMax = total ? total : this.getMaximumDomain(displayData);
-
-			result = [
-				['Group', 'Value', 'Percentage of total'],
-				...displayData.map((datum) => [
-					datum[groupMapsTo],
-					datum['value'],
-					((datum['value'] / domainMax) * 100).toFixed(2) + ' %',
-				]),
-			];
+			let isAnnotated = this.isAnnotated(displayData);
+      //modify tabular data here 
+			if (isAnnotated) {
+				result = [
+					['Group', 'Value', 'Percentage of total', 'Annotation'],
+					...displayData.map((datum) => [
+						datum[groupMapsTo],
+						datum['value'],
+						((datum['value'] / domainMax) * 100).toFixed(2) + ' %',
+						datum['annotation'] ? datum['annotation'] : "None" 
+					]),
+				];
+				
+			} else {
+				result = [
+					['Group', 'Value', 'Percentage of total'],
+					...displayData.map((datum) => [
+						datum[groupMapsTo],
+						datum['value'],
+						((datum['value'] / domainMax) * 100).toFixed(2) + ' %',
+					]),
+				];
+			}
 		}
 
 		return result;

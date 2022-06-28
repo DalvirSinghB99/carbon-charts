@@ -16,7 +16,7 @@ import { select } from 'd3-selection';
 
 export class Meter extends Component {
 	type = 'meter';
-	renderType = RenderTypes.SVG;
+	renderType = RenderTypes.HTML;
 
 	getStackedBounds(data, scale) {
 		let prevX = 0;
@@ -45,9 +45,69 @@ export class Meter extends Component {
 		return stackedData;
 	}
 
+	calculatePosition = (data, width) => {
+		let positions = [0];
+		let sum = 0;
+		data.forEach((item, i) => {
+			positions.push(sum + ((width/100) * item.value))
+			sum = sum + ((width/100) * item.value)
+		})
+		// console.log("positions ", positions)
+		return positions
+	
+	}
+
+	annotateContainer = (data, container, width) => {
+
+		if (this.model.isAnnotated(data)) {
+			const selections = container.selectAll('div')
+			if (width != 0) {
+				let positions = this.calculatePosition(data, width)
+				selections.data(data)
+					.join(
+						enter =>
+							enter.append('div')
+								.style('left', function (d, i) {
+									return (positions[i] + "px");
+								})
+								.style('max-width', function (d, i) {
+									return ((positions[i + 1] - positions[i]) + "px");
+								})
+								.attr('class', 'tooltip-wrapper')
+								.filter((d, i) => {
+									if (d.annotation) {
+										return true
+									} else {
+										return false
+									}
+								})
+								.style('display', 'inline-block')
+								.append('div')
+								.attr('class', 'item')
+								.append('p')
+								.text((d) => d.annotation),
+						update => {
+							let selected = container.selectAll('.tooltip-wrapper').data(data);
+							console.log("Selected ", selected)
+							selected.style('left', (d, i) => {
+								console.log("Updating ", d);
+								return (positions[i] + "px");
+							})
+							.style('max-width', function (d, i) {
+								return ((positions[i + 1] - positions[i]) + "px");
+							})
+
+						},
+								exit => exit.remove()
+							)
+			}
+		}
+	}
+
 	render(animate = true) {
 		const self = this;
-		const svg = this.getComponentContainer();
+		const container = this.getComponentContainer();
+		const parent = select(container.node().parentNode);
 		const options = this.getOptions();
 		const proportional = Tools.getProperty(
 			options,
@@ -57,9 +117,6 @@ export class Meter extends Component {
 		const data = this.model.getDisplayData();
 		const status = this.model.getStatus();
 
-		const { width } = DOMUtils.getSVGElementSize(svg, {
-			useAttrs: true,
-		});
 
 		const { groupMapsTo } = options.data;
 
@@ -78,18 +135,29 @@ export class Meter extends Component {
 				: this.model.getMaximumDomain(this.model.getDisplayData());
 		}
 
-		// each meter has a scale for the value but no visual axis
-		const xScale = scaleLinear().domain([0, domainMax]).range([0, width]);
-		const stackedData = this.getStackedBounds(data, xScale);
-
 		const userProvidedHeight = Tools.getProperty(
 			options,
 			'meter',
 			'height'
 		);
 
-		// draw the container to hold the value
-		DOMUtils.appendOrSelect(svg, 'rect.container')
+		const SVG = DOMUtils.appendOrSelect(parent, 'svg').attr('class', 'layout-svg-wrapper cds--cc--meter')
+
+		const annot =  DOMUtils.appendOrSelect(
+		container,
+		`div.annotation-content`
+		);
+
+		const { width } = DOMUtils.getSVGElementSize(SVG, {
+			useAttrs: true,
+		});
+
+		// each meter has a scale for the value but no visual axis
+		const xScale = scaleLinear().domain([0, domainMax]).range([0, width]);
+		
+		const stackedData = this.getStackedBounds(data, xScale);
+
+		DOMUtils.appendOrSelect(SVG, 'rect.container')
 			.attr('x', 0)
 			.attr('y', 0)
 			.attr('width', width)
@@ -102,8 +170,14 @@ export class Meter extends Component {
 					: Configuration.meter.height.default
 			);
 
+		
+		console.log('Height ', userProvidedHeight
+		? userProvidedHeight
+		: proportional
+		? Configuration.meter.height.proportional
+		: Configuration.meter.height.default)
 		// draw the container max range value indicator
-		DOMUtils.appendOrSelect(svg, 'line.rangeIndicator')
+		DOMUtils.appendOrSelect(SVG, 'line.rangeIndicator')
 			.attr('x1', width)
 			.attr('x2', width)
 			.attr('y1', 0)
@@ -117,7 +191,7 @@ export class Meter extends Component {
 			);
 
 		// rect with the value binded
-		const valued = svg.selectAll('rect.value').data(stackedData);
+		const valued = SVG.selectAll('rect.value').data(stackedData);
 
 		// if user provided a color for the bar, we dont want to attach a status class
 		const className =
@@ -172,6 +246,8 @@ export class Meter extends Component {
 			.attr('role', Roles.GRAPHICS_SYMBOL)
 			.attr('aria-roledescription', 'value')
 			.attr('aria-label', (d) => d.value);
+		
+		this.annotateContainer(data, annot, width)
 
 		valued.exit().remove();
 
@@ -189,7 +265,7 @@ export class Meter extends Component {
 		}
 
 		// if a peak is supplied within the domain, we want to render it
-		const peak = svg
+		const peak = SVG
 			.selectAll('line.peak')
 			.data(peakData == null ? [] : [peakData]);
 
