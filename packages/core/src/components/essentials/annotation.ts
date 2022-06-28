@@ -45,32 +45,44 @@ export class Annotation extends Component {
       if (width != 0) {
         let positions = this.calculatePosition(data, width)
         selections.data(data)
-          .join(function (enter) {
-            return enter
-              .append('div')
-              .style('left', function (d, i) {
-                console.log("Positions ", positions);
-                return (positions[i] + "px");
-              })
-              .filter((d, i) => {
-                if (d.annotation) {
-                  return true
-                } else {
-                  return false
-                }
-              })
-              .attr('class', 'item')
+        .join(
+        enter =>
+          enter.append('div')
+            .style('left', function (d, i) {
+              return (positions[i] + "px");
+            })
+            .style('max-width', function (d, i) {
+              return ((positions[i + 1] - positions[i]) + "px");
+            })
+            .attr('class', 'tooltip-wrapper')
+            .style('width', function (d, i) {
+              return ((positions[i + 1] - positions[i]) + "px");
+            })
+            .filter((d, i) => {
+              if (d.annotation) {
+                return true
+              } else {
+                return false
+              }
+            })
+            .style('display', 'inline-block')
+            .append('div')
+            .attr('class', 'tooltip-content')
             .append('p')
-            .text((d) => d.annotation)
-          },
-            function (update) {
-              return update.style('left', function (d, i) {
+            .text((d) => d.annotation),
+        update => {
+          let selected = container.selectAll('.tooltip-wrapper').data(data);
+          console.log("Selected ", selected)
+          selected.style('left', (d, i) => {
+            console.log("Updating ", d);
+            return (positions[i] + "px");
+          })
+          .style('max-width', function (d, i) {
+            return ((positions[i + 1] - positions[i]) + "px");
+          })
 
-                console.log("Positions ", positions);
-                return (positions[i] + "px");
-              })
-            }
-            
+        },
+            exit => exit.remove()
           )
       }
     }
@@ -86,7 +98,7 @@ export class Annotation extends Component {
     console.log("Parent ", parent);
     console.log("Container ", container);
 
-    const SVG = DOMUtils.appendOrSelect(parent, 'svg').attr('class', 'layout-svg-wrapper cds--cc--annotation').style('box-shadow', 'none')
+    const SVG = DOMUtils.appendOrSelect(parent, 'svg').attr('class', 'layout-svg-wrapper cds--cc--annotation').style('box-shadow', 'none').style('z-index', -1)
 
     const annot =  DOMUtils.appendOrSelect(
     container,

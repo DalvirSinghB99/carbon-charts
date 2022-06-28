@@ -13,15 +13,12 @@
 	
 		.tooltip-wrapper{
 			position: absolute;
-			width: 200px;
 			display: none;
-			
+			width: 80px;
 
-			.item {
+			.tooltip-content {
 					position: absolute;
-					width: 100%;
-					height: 25px;
-					top: -30px;
+					top: -80px;
 					background-color: $background-inverse;
 					text-decoration: $text-inverse  !important;
 					text-align: center;
@@ -29,7 +26,6 @@
 					overflow: hidden;
 					text-overflow: ellipsis;
 					word-break: break-word;
-			
 			
 					p {
 						color: $text-inverse;
@@ -48,12 +44,13 @@
 			
 				&::after {
 					content: "";
-					top: -5px;
-					position: absolute;
-					left: 3px;
-					border-width: 8px;
-					border-style: solid;
-					border-color: $background-inverse transparent transparent transparent;
+						top: -5px;
+						position: absolute;
+						left: 50%;
+						margin-left: -5px;
+						border-width: 5px;
+						border-style: solid;
+						border-color: #555 transparent transparent transparent;
 				}
 		}
 	}

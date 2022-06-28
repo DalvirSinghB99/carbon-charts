@@ -59,7 +59,7 @@ export class Meter extends Component {
 
 	annotateContainer = (data, container, width) => {
 
-		if (this.model.isAnnotated(data)) {
+		if (false) {
 			const selections = container.selectAll('div')
 			if (width != 0) {
 				let positions = this.calculatePosition(data, width)
@@ -74,6 +74,9 @@ export class Meter extends Component {
 									return ((positions[i + 1] - positions[i]) + "px");
 								})
 								.attr('class', 'tooltip-wrapper')
+								.style('width', function (d, i) {
+									return ((positions[i + 1] - positions[i]) + "px");
+								})
 								.filter((d, i) => {
 									if (d.annotation) {
 										return true
@@ -83,7 +86,7 @@ export class Meter extends Component {
 								})
 								.style('display', 'inline-block')
 								.append('div')
-								.attr('class', 'item')
+								.attr('class', 'tooltip-content')
 								.append('p')
 								.text((d) => d.annotation),
 						update => {

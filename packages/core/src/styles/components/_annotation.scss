@@ -4,45 +4,66 @@
 
 .#{$prefix}--#{$charts-prefix}--annotation{
     // pointer-events: none;
-    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.2);
-    word-wrap: break-word;
-    z-index: 1000;
-    position: absolute;
-    display: inline-block;
-    width: 100px;
-    // max-height: fit-content;
-    
+        // pointer-events: none;
+        word-wrap: break-word;
+        z-index: 1;
+        position: absolute;
+        display: inline;
+        width: inherit;
+        height: inherit;
 
-    .item {
-      position: absolute;
-      top:-18px;
-      width: 100%;
-      height: max-content;
-      background-color: $background-inverse;
-      text-decoration: $text-inverse  !important;
-      text-align: center;
-      border-radius: 5px;
-      
+        .annotation{
+          z-index: 1059;
+          width: inherit;
+          height: inherit;
 
-      p {
-        color: $text-inverse;
+
+          .tooltip-wrapper {
+              z-index: 1059;
+              position: absolute;
+              display: none;
+              top: 0px;
+              width: inherit;
+              height: inherit;
+              max-height: 200px;
+          
+              .tooltip-content {
+                position: absolute;
+                height: 90%;
+                background-color: $background-inverse;
+                text-decoration: $text-inverse  !important;
+                text-align: center;
+                border-radius: 4px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                word-break: break-word;
+          
+                p {
+                  color: $text-inverse;
+                }
+          
+                &:hover {
+                  transform: scale(1.3);
+                  overflow: visible;
+                  white-space: normal;
+                  padding: 0.2rem;
+                  width: auto;
+                  height: auto;
+                  z-index: 10590;
+                }
+              }
+          
+              &::after {
+                content: "";
+                bottom: -8px;
+                position: absolute;
+                left: 50%;
+                border-width: 5px;
+                border-style: solid;
+                border-color: rgb(5, 5, 5) transparent transparent transparent;
+              }
+          }
+
+        
+        }
       }
-
-      &::after{
-        content: "";
-          position: absolute;
-          left: 3px;
-          border-width: 5px;
-          border-style: solid;
-          border-color: $background-inverse transparent transparent transparent;
-      }
-
-      // &:hover{
-      //   overflow: visible;
-      //   white-space: normal;
-      //   width: auto;
-      // }
-    }
-
-    
-  }

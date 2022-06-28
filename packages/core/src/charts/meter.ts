@@ -75,14 +75,14 @@ export class MeterChart extends Chart {
 								growth: LayoutGrowth.STRETCH,
 							renderType: RenderTypes.SVG,
 					},
-						// {
-						// 		id: 'annotation-content',
-						// 		components: [
-						// 			new Annotation(this.model, this.services),
-						// 		],
-						// 		growth: LayoutGrowth.STRETCH,
-						// 		renderType: RenderTypes.HTML,
-						// }
+						{
+								id: 'annotation-content',
+								components: [
+									new Annotation(this.model, this.services),
+								],
+								growth: LayoutGrowth.STRETCH,
+								renderType: RenderTypes.HTML,
+						}
 				  ]
 				: []),
 		
