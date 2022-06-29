@@ -51,16 +51,15 @@ export const meterOptionsNoStatus = {
 export const propMeterData = [
 	{ group: '4.3.10.21', value: 10, annotation: "" },
 	{ group: '5.4.9.21', value: 20, annotation: "" },
-	{ group: '6.5.12.3', value: 30, annotation: "" },
-	{ group: '7.6.9.22', value: 20, annotation: "Current Level (8.6.9.22)" },
-	{ group: '8.7.9.22', value: 10, annotation: "Recommended Level (8.7.9.22)" },
-	{ group: '8.8.9.21', value: 6, annotation: "" },
-	{ group: 'others', value: 4, annotation: "" },
+	{ group: '6.5.12.3', value: 30, annotation: "Current Level (6.5.12.3)" },
+	{ group: '7.6.9.22', value: 25, annotation: "Recommended Level (7.6.9.22)" },
+	{ group: '8.7.9.22', value: 5, annotation: "" },
+	{ group: 'others', value: 10, annotation: "" },
 ];
 
 export const propMeterOptions = {
-	title: 'Proportional Meter Chart',
-	height: '200px',
+	title: 'Installed code levels for all 2423-961 assets',
+	height: '300px',
 	meter: {
 		proportional: {
 			total: 100,
@@ -70,13 +69,13 @@ export const propMeterOptions = {
 
 	color: {
 		scale: {
-			'4.3.10.21': '#e35252',
-			'5.4.9.21': '#f59556',
-			'6.5.12.3': '#e8b556',
-			'7.6.9.22': '#3c8025',
-			'8.7.9.22': '#60c93c',
-			'8.8.9.21': '#6de645',
-			'others': 'gray'
+			"4.3.10.21": "#e35252",
+			"5.4.9.21": "#c75b18",
+			"6.5.12.3": "#e8b556",
+			"7.6.9.22": "#3c8025",
+			"8.7.9.22": "#6de645",
+			"8.8.9.21": "#60c93c",
+			"others": "gray"
 		},
 		pairing: {
 			option: 2,
