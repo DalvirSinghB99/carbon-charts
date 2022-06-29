@@ -51,9 +51,9 @@ export class Annotation extends Component {
             .style('left', function (d, i) {
               return (positions[i] + "px");
             })
-            .style('max-width', function (d, i) {
-              return ((positions[i + 1] - positions[i]) + "px");
-            })
+            // .style('max-width', function (d, i) {
+            //   return ((positions[i + 1] - positions[i]) + "px");
+            // })
             .attr('class', 'tooltip-wrapper')
             .style('width', function (d, i) {
               return ((positions[i + 1] - positions[i]) + "px");
@@ -77,9 +77,9 @@ export class Annotation extends Component {
             console.log("Updating ", d);
             return (positions[i] + "px");
           })
-          .style('max-width', function (d, i) {
-            return ((positions[i + 1] - positions[i]) + "px");
-          })
+          // .style('max-width', function (d, i) {
+          //   return ((positions[i + 1] - positions[i]) + "px");
+          // })
 
         },
             exit => exit.remove()
