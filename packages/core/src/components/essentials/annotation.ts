@@ -64,14 +64,20 @@ export class Annotation extends Component {
             .attr('class', 'tooltip-content')
             .append('p')
             .text((d) => d.annotation),
-        update => {
-          let selected = container.selectAll('.tooltip-wrapper').data(data);
-          selected.style('left', (d, i) => {
+          update => {
+          console.log("Repositioning tooltip wrapper")
+            let selected = container.selectAll('.tooltip-wrapper')
+            console.log("selected ", selected)
+            selected.style('left', (d, i) => {
+              console.log("Updating ", d);
             return (positions[i] + "px");
+            })
+            console.log("Positions ", positions)
+          selected.style('width', (d, i) => {
+              console.log("Updating ", d);
+            return (positions[i+1]-positions[i] + "px");
           })
-          // .style('max-width', function (d, i) {
-          //   return ((positions[i + 1] - positions[i]) + "px");
-          // })
+
 
         },
             exit => exit.remove()
@@ -86,10 +92,6 @@ export class Annotation extends Component {
     const container = this.getComponentContainer();
     const parent = select(container.node().parentNode);
     const data = this.model.getDisplayData();
-
-    console.log("Parent ", parent);
-    console.log()
-    console.log("Container ", container);
 
     const SVG = DOMUtils.appendOrSelect(parent, 'svg').attr('class', 'layout-svg-wrapper cds--cc--annotation').style('box-shadow', 'none').style('z-index', -1)
 

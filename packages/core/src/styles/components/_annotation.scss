@@ -14,20 +14,19 @@
           height: inherit;
           padding: inherit;
 
-
           .tooltip-wrapper {
               z-index: 1059;
               position: absolute;
-              display: none;
               bottom: 0px;
               width: inherit;
               height: inherit;
+              display: none;
           
               .tooltip-content {
-                display: block;
+                left: 50%;
+                transform: translate(-50%, 0);
                 width: "fit-conent";
-                margin-left: 20%;
-                margin-right: 20%;
+                left: 50%;
                 bottom: 3px;
                 position: absolute;
                 height: min-content;
@@ -37,8 +36,6 @@
                 text-align: left;
                 border-radius: 4px;
                 overflow: hidden;
-                text-overflow: ellipsis ellipsis;
-                // word-break: break-word;
           
                 p {
                   color: $text-inverse;
