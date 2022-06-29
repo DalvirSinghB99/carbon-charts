@@ -13,12 +13,6 @@ import {
 import * as Configuration from '../../configuration';
 import { DOMUtils } from '../../services';
 
-// import the settings for the css prefix
-import { carbonPrefix } from '../../configuration-non-customizable';
-
-// Carbon position service
-import Position, { PLACEMENTS } from '@carbon/utils-position';
-
 // D3 Imports
 import { select } from 'd3-selection';
 
@@ -72,9 +66,7 @@ export class Annotation extends Component {
             .text((d) => d.annotation),
         update => {
           let selected = container.selectAll('.tooltip-wrapper').data(data);
-          console.log("Selected ", selected)
           selected.style('left', (d, i) => {
-            console.log("Updating ", d);
             return (positions[i] + "px");
           })
           // .style('max-width', function (d, i) {
@@ -96,15 +88,22 @@ export class Annotation extends Component {
     const data = this.model.getDisplayData();
 
     console.log("Parent ", parent);
+    console.log()
     console.log("Container ", container);
 
     const SVG = DOMUtils.appendOrSelect(parent, 'svg').attr('class', 'layout-svg-wrapper cds--cc--annotation').style('box-shadow', 'none').style('z-index', -1)
 
-    const annot =  DOMUtils.appendOrSelect(
+    const { width } = DOMUtils.getSVGElementSize(SVG);
+    const wrap =  DOMUtils.appendOrSelect(
     container,
+    `div.wrap`
+    );
+
+    const annot =  DOMUtils.appendOrSelect(
+    wrap,
     `div.annotation`
     );
-    const { width } = DOMUtils.getSVGElementSize(SVG);
+
 
     console.log("width is ", width)
     this.annotateContainer(data, annot, width)

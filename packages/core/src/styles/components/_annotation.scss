@@ -3,19 +3,16 @@
 @use "@carbon/styles/scss/theme" as *;
 
 .#{$prefix}--#{$charts-prefix}--annotation{
-    // pointer-events: none;
-        // pointer-events: none;
-        word-wrap: break-word;
-        z-index: 1;
-        position: absolute;
-        display: inline;
-        width: inherit;
-        height: inherit;
-
+        all: inherit;
+        position: relative;
+        .wrap{
+          all: inherit;
+          position: absolute;
         .annotation{
           z-index: 1059;
-          width: inherit;
+          // width: inherit;
           height: inherit;
+          padding: inherit;
 
 
           .tooltip-wrapper {
@@ -29,19 +26,19 @@
               .tooltip-content {
                 display: block;
                 width: "fit-conent";
-                left: 22%;
-                right: 10%;
+                margin-left: 20%;
+                margin-right: 20%;
                 bottom: 3px;
                 position: absolute;
                 height: min-content;
                 max-height: 90%;
                 background-color: $background-inverse;
                 text-decoration: $text-inverse  !important;
-                text-align: center;
+                text-align: left;
                 border-radius: 4px;
                 overflow: hidden;
                 text-overflow: ellipsis ellipsis;
-                word-break: break-word;
+                // word-break: break-word;
           
                 p {
                   color: $text-inverse;
@@ -49,13 +46,14 @@
                 }
           
                 &:hover {
-                  transform: scale(1.5);
+                  transform: scale(1.5, 1.5);
+                  max-width: none;
+                  max-height: none;
                   overflow: visible;
                   white-space: normal;
                   padding: 0.2rem;
                   width: auto;
                   height: auto;
-                  max-height: none;
                   z-index: 1059;
                 }
               }
@@ -71,6 +69,6 @@
               }
           }
 
-        
+        }
         }
       }
