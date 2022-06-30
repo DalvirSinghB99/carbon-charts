@@ -49,34 +49,22 @@ export const meterOptionsNoStatus = {
 };
 
 export const propMeterData = [
-	{ group: '4.3.10.21', value: 10, annotation: "" },
-	{ group: '5.4.9.21', value: 20, annotation: "" },
-	{ group: '6.5.12.3', value: 30, annotation: "Current Level (6.5.12.3)" },
-	{ group: '7.6.9.22', value: 25, annotation: "Recommended Level (7.6.9.22)" },
-	{ group: '8.7.9.22', value: 5, annotation: "Fourth Label" },
-	{ group: 'others', value: 10, annotation: "Others" },
+	{ group: 'emails', value: 202 },
+	{ group: 'photos', value: 654 },
+	{ group: 'text messages', value: 723 },
+	{ group: 'other', value: 120 },
 ];
 
 export const propMeterOptions = {
-	title: 'Installed code levels for all 2423-961 assets',
-	height: '300px',
+	title: 'Proportional Meter Chart',
+	height: '130px',
 	meter: {
 		proportional: {
-			total: 100,
-			unit: 'percent',
+			total: 2000,
+			unit: 'GB',
 		},
 	},
-
 	color: {
-		scale: {
-			"4.3.10.21": "#e35252",
-			"5.4.9.21": "#c75b18",
-			"6.5.12.3": "#e8b556",
-			"7.6.9.22": "#3c8025",
-			"8.7.9.22": "#6de645",
-			"8.8.9.21": "#60c93c",
-			"others": "gray"
-		},
 		pairing: {
 			option: 2,
 		},

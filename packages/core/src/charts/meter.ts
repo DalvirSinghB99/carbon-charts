@@ -22,7 +22,6 @@ import {
 	MeterTitle,
 	Spacer,
 } from '../components/index';
-import { Annotation } from '../components/essentials/annotation';
 
 export class MeterChart extends Chart {
 	model = new MeterChartModel(this.services);
@@ -35,11 +34,11 @@ export class MeterChart extends Chart {
 			? Tools.merge(
 					Tools.clone(Configuration.options.proportionalMeterChart),
 					chartConfigs.options
-			  )
+				)
 			: Tools.merge(
 					Tools.clone(Configuration.options.meterChart),
 					chartConfigs.options
-			  );
+				);
 
 		// Merge the default options for this chart
 		// With the user provided options
@@ -66,34 +65,26 @@ export class MeterChart extends Chart {
 							],
 							growth: LayoutGrowth.STRETCH,
 							renderType: RenderTypes.SVG,
-					},
+						},
+						// Create the title spacer
 						{
-								id: 'spacer',
-								components: [
-									new Spacer(this.model, this.services, {size:8}),
-								],
-								growth: LayoutGrowth.STRETCH,
-							renderType: RenderTypes.SVG,
-					},
-						{
-								id: 'annotation-content',
-								components: [
-									new Annotation(this.model, this.services),
-								],
-								growth: LayoutGrowth.STRETCH,
-								renderType: RenderTypes.HTML,
-						}
-				  ]
+							id: 'spacer',
+							components: [
+								new Spacer(this.model, this.services, {
+									size: 8,
+								}),
+							],
+							growth: LayoutGrowth.STRETCH,
+						},
+					]
 				: []),
-		
 			// Specify what to render inside the graph only
 			{
 				id: 'meter-graph',
 				components: [new Meter(this.model, this.services)],
 				growth: LayoutGrowth.STRETCH,
-				renderType: RenderTypes.HTML,
+				renderType: RenderTypes.SVG,
 			},
-			
 		];
 
 		// the graph frame for meter includes the custom title (and spacer)

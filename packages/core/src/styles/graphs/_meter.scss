@@ -2,59 +2,6 @@
 @use "@carbon/styles/scss/theme" as *;
 
 .#{$prefix}--#{$charts-prefix}--meter {
-
-	.annotation-content {
-		// pointer-events: none;
-		word-wrap: break-word;
-		z-index: 1059;
-		position: absolute;
-		display: inline-block;
-		
-	
-		.tooltip-wrapper{
-			position: absolute;
-			display: none;
-			width: 80px;
-
-			.tooltip-content {
-					position: absolute;
-					top: -80px;
-					background-color: $background-inverse;
-					text-decoration: $text-inverse  !important;
-					text-align: center;
-					border-radius: 4px;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					word-break: break-word;
-			
-					p {
-						color: $text-inverse;
-					}
-
-					&:hover{
-						transform: scale(1.3);
-						overflow: visible;
-						white-space: normal;
-						padding: 0.2rem;
-						width: auto;
-						height: auto;
-						z-index: 10590;
-					}
-				}
-			
-				&::after {
-					content: "";
-						top: -5px;
-						position: absolute;
-						left: 50%;
-						margin-left: -5px;
-						border-width: 5px;
-						border-style: solid;
-						border-color: #555 transparent transparent transparent;
-				}
-		}
-	}
-		
 	rect.container {
 		fill: $layer-01;
 	}
