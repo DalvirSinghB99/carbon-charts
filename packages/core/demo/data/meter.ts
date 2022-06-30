@@ -53,8 +53,8 @@ export const propMeterData = [
 	{ group: '5.4.9.21', value: 20, annotation: "" },
 	{ group: '6.5.12.3', value: 30, annotation: "Current Level (6.5.12.3)" },
 	{ group: '7.6.9.22', value: 25, annotation: "Recommended Level (7.6.9.22)" },
-	{ group: '8.7.9.22', value: 5, annotation: "" },
-	{ group: 'others', value: 10, annotation: "" },
+	{ group: '8.7.9.22', value: 5, annotation: "Fourth Label" },
+	{ group: 'others', value: 10, annotation: "Others" },
 ];
 
 export const propMeterOptions = {

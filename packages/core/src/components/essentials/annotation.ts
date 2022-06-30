@@ -35,53 +35,53 @@ export class Annotation extends Component {
   annotateContainer = (data, container, width) => {
 
     if (this.model.isAnnotated(data)) {
+      let positions = this.calculatePosition(data, width)
       const selections = container.selectAll('div')
-      if (width != 0) {
-        let positions = this.calculatePosition(data, width)
+      if (selections.empty() && width != 0) {
         selections.data(data)
-        .join(
-        enter =>
-          enter.append('div')
-            .style('left', function (d, i) {
-              return (positions[i] + "px");
-            })
-            // .style('max-width', function (d, i) {
-            //   return ((positions[i + 1] - positions[i]) + "px");
-            // })
-            .attr('class', 'tooltip-wrapper')
-            .style('width', function (d, i) {
-              return ((positions[i + 1] - positions[i]) + "px");
-            })
-            .filter((d, i) => {
-              if (d.annotation) {
-                return true
-              } else {
-                return false
-              }
-            })
-            .style('display', 'inline-block')
-            .append('div')
-            .attr('class', 'tooltip-content')
-            .append('p')
-            .text((d) => d.annotation),
-          update => {
-          console.log("Repositioning tooltip wrapper")
-            let selected = container.selectAll('.tooltip-wrapper')
-            console.log("selected ", selected)
-            selected.style('left', (d, i) => {
-              console.log("Updating ", d);
-            return (positions[i] + "px");
-            })
-            console.log("Positions ", positions)
-          selected.style('width', (d, i) => {
-              console.log("Updating ", d);
-            return (positions[i+1]-positions[i] + "px");
-          })
-
-
-        },
+          .join(
+            enter =>
+              enter.append('div')
+                .style('left', function (d, i) {
+                  return (positions[i] + "px");
+                })
+                .attr('class', 'tooltip-wrapper')
+                .style('width', function (d, i) {
+                  return ((positions[i + 1] - positions[i]) + "px");
+                })
+                .filter((d, i) => {
+                  if (d.annotation) {
+                    return true
+                  } else {
+                    return false
+                  }
+                })
+                .style('display', 'inline-block')
+                .append('div')
+                .attr('class', 'tooltip-content')
+                .append('p')
+                .text((d) => d.annotation),
+            update => {
+              let selected = container.selectAll('.tooltip-wrapper')
+              selected.style('left', (d, i) => {
+                return (positions[i] + "px");
+              })
+              console.log("Positions ", positions)
+              selected.style('width', (d, i) => {
+                return (positions[i + 1] - positions[i] + "px");
+              })
+            },
             exit => exit.remove()
           )
+      } else{
+        let selected = container.selectAll('.tooltip-wrapper')
+        selected.style('left', (d, i) => {
+          return (positions[i] + "px");
+        })
+        selected.style('width', (d, i) => {
+          return (positions[i + 1] - positions[i] + "px");
+        })
+        console.log("selected ", selected)
       }
     }
   }
