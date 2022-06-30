@@ -22,6 +22,7 @@ import {
 	MeterTitle,
 	Spacer,
 } from '../components/index';
+import { Annotation } from '../components/essentials/annotation';
 
 export class MeterChart extends Chart {
 	model = new MeterChartModel(this.services);
@@ -75,7 +76,14 @@ export class MeterChart extends Chart {
 								}),
 							],
 							growth: LayoutGrowth.STRETCH,
-						},
+					},
+						{
+							id: 'annotation',
+							components: [
+								new Annotation(this.model, this.services),
+							],
+							growth: LayoutGrowth.STRETCH,
+						}
 					]
 				: []),
 			// Specify what to render inside the graph only
