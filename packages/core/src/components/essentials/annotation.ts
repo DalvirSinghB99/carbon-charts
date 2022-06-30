@@ -21,21 +21,22 @@ export class Annotation extends Component {
   renderType = RenderTypes.HTML;
 
 
-  calculatePosition = (data, width) => {
+  calculatePosition = (data, width, domainMax) => {
     let positions = [0]
     let sum = 0;
     data.forEach((item, i) => {
-      positions.push(sum + ((width/100) * item.value))
-      sum = sum + ((width/100) * item.value)
+      positions.push(sum + ((width/domainMax) * item.value))
+      sum = sum + ((width/domainMax) * item.value)
     })
+    console.log("Positions ", positions)
     return positions
 	
   }
 
-  annotateContainer = (data, container, width) => {
+  annotateContainer = (data, container, width, domainMax) => {
 
     if (this.model.isAnnotated(data)) {
-      let positions = this.calculatePosition(data, width)
+      let positions = this.calculatePosition(data, width, domainMax)
       const selections = container.selectAll('div')
       if (selections.empty() && width != 0) {
         selections.data(data)
@@ -92,6 +93,21 @@ export class Annotation extends Component {
     const container = this.getComponentContainer();
     const parent = select(container.node().parentNode);
     const data = this.model.getDisplayData();
+    const options = this.getOptions();
+    let domainMax;
+    if (Tools.getProperty(options, 'meter', 'proportional') === null) {
+      domainMax = 100;
+    } else {
+      const total = Tools.getProperty(
+        options,
+        'meter',
+        'proportional',
+        'total'
+      );
+      domainMax = total
+        ? total
+        : this.model.getMaximumDomain(this.model.getDisplayData());
+    }
 
     const SVG = DOMUtils.appendOrSelect(parent, 'svg').attr('class', 'layout-svg-wrapper cds--cc--annotation').style('box-shadow', 'none').style('z-index', -1)
 
@@ -108,6 +124,6 @@ export class Annotation extends Component {
 
 
     console.log("width is ", width)
-    this.annotateContainer(data, annot, width)
+    this.annotateContainer(data, annot, width, domainMax)
   }
 }
